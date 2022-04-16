@@ -61,7 +61,7 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 			// 
 			// pb
 			// 
-			this.pb.BackColor = System.Drawing.Color.White;
+			this.pb.BackColor = System.Drawing.Color.Black;
 			this.pb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.pb.Location = new System.Drawing.Point(50, 50);
 			this.pb.Name = "pb";
@@ -71,7 +71,7 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 			// 
 			// nud_N
 			// 
-			this.nud_N.Location = new System.Drawing.Point(752, 68);
+			this.nud_N.Location = new System.Drawing.Point(752, 97);
 			this.nud_N.Maximum = new decimal(new int[] {
             400,
             0,
@@ -86,14 +86,14 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 			this.nud_N.Size = new System.Drawing.Size(54, 23);
 			this.nud_N.TabIndex = 1;
 			this.nud_N.Value = new decimal(new int[] {
-            400,
+            40,
             0,
             0,
             0});
 			// 
 			// nud_M
 			// 
-			this.nud_M.Location = new System.Drawing.Point(752, 97);
+			this.nud_M.Location = new System.Drawing.Point(752, 68);
 			this.nud_M.Maximum = new decimal(new int[] {
             400,
             0,
@@ -108,7 +108,7 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 			this.nud_M.Size = new System.Drawing.Size(54, 23);
 			this.nud_M.TabIndex = 2;
 			this.nud_M.Value = new decimal(new int[] {
-            400,
+            10,
             0,
             0,
             0});
@@ -116,27 +116,27 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(665, 70);
+			this.label1.Location = new System.Drawing.Point(660, 99);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(81, 15);
+			this.label1.Size = new System.Drawing.Size(86, 15);
 			this.label1.TabIndex = 3;
-			this.label1.Text = "szélesség: N =";
+			this.label1.Text = "magasság: N =";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(658, 99);
+			this.label2.Location = new System.Drawing.Point(663, 70);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(88, 15);
+			this.label2.Size = new System.Drawing.Size(83, 15);
 			this.label2.TabIndex = 4;
-			this.label2.Text = "magasság: M =";
+			this.label2.Text = "szélesség: M =";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(812, 70);
+			this.label3.Location = new System.Drawing.Point(812, 99);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(58, 15);
 			this.label3.TabIndex = 5;
@@ -146,7 +146,7 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(812, 99);
+			this.label4.Location = new System.Drawing.Point(812, 70);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(58, 15);
 			this.label4.TabIndex = 6;
@@ -279,6 +279,7 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 			this.btn_start.TabIndex = 16;
 			this.btn_start.Text = "START";
 			this.btn_start.UseVisualStyleBackColor = true;
+			this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
 			// 
 			// btn_stop
 			// 
@@ -288,6 +289,7 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 			this.btn_stop.TabIndex = 17;
 			this.btn_stop.Text = "STOP";
 			this.btn_stop.UseVisualStyleBackColor = true;
+			this.btn_stop.Click += new System.EventHandler(this.btn_stop_Click);
 			// 
 			// btn_lep
 			// 
@@ -297,6 +299,7 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 			this.btn_lep.TabIndex = 18;
 			this.btn_lep.Text = "LÉPTET";
 			this.btn_lep.UseVisualStyleBackColor = true;
+			this.btn_lep.Click += new System.EventHandler(this.btn_lep_Click);
 			// 
 			// debuglabel
 			// 

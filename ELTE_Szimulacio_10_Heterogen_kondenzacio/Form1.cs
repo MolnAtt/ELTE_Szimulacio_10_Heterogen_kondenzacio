@@ -12,20 +12,22 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 {
 	public partial class Form1 : Form
 	{
-		Felho f;
+		Felho felhő;
 		public Form1()
 		{
 			InitializeComponent();
+			Ujfelho();
 		}
 
-		private void btn_uj_Click(object sender, EventArgs e)
-		{
-			int N = (int)nud_N.Value;
-			int M = (int)nud_M.Value;
-			decimal BV = nud_BV.Value;
-			decimal BK = nud_BK.Value;
-			int T = (int)nud_T.Value;
-			f = new Felho(N, M, BV, BK, T, pb);
-		}
+		private void btn_uj_Click(object sender, EventArgs e) => Ujfelho();
+
+		private void Ujfelho() => felhő = new Felho(nud_N.Value, nud_M.Value, nud_BV.Value, nud_BK.Value, nud_T.Value, pb);
+		
+
+		private void btn_start_Click(object sender, EventArgs e) => felhő.Start();
+
+		private void btn_stop_Click(object sender, EventArgs e) => felhő.Stop();
+
+		private void btn_lep_Click(object sender, EventArgs e) => felhő.Lépés();
 	}
 }

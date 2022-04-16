@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-
 namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 {
 	class Felho
@@ -12,19 +11,26 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 		private double BV;
 		private double BK;
 		private int T;
+		private int C;
 		private Bitmap bmp;
 		private PictureBox pb;
 		private int[,] Tér;
 		private Random r;
 		private bool fut;
+		private void SetVíz(Point P, int v) => Tér[P.X, P.Y] = v;
+		private void AddVíz(Point P, int v) => Tér[P.X, P.Y] += v;
+		private int GetVíz(Point P) => Tér[P.X, P.Y];
+		private bool Csepp(Point P) => GetVíz(P) > 1;
+		private bool Vizes(Point P) => GetVíz(P) != 0;
 
-		public Felho(decimal H, decimal W, decimal BV, decimal BK, decimal T, PictureBox pb)
+		public Felho(decimal H, decimal W, decimal BV, decimal BK, decimal T, decimal C, PictureBox pb)
 		{
 			this.H = (int)H;
 			this.W = (int)W;
 			this.BV = (double)BV;
 			this.BK = (double)BK;
 			this.T = (int)T;
+			this.C = 255/(int)C;
 			this.pb = pb;
 			this.pb.Size = new Size(this.W, this.H);
 			this.bmp = new Bitmap(this.W, this.H);
@@ -37,23 +43,18 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 				for (int y = 0; y < H; y++)
 					bmp.SetPixel(x, y, Color.FromArgb(255, 255, 255));
 		}
-		internal void Stop()
-		{
-			fut = false;			
-		}
+		internal void Stop() => fut = false;			
 		internal void Start()
 		{
 			fut = true;
 			Futás();
 		}
-		private bool Csepp(Point P) => Tér[P.X, P.Y] > 1;
-		private bool Vizes(Point P) => Tér[P.X, P.Y] != 0;
 		private void Futás()
 		{
 			while (fut)
 			{
-				Lépés();
 				Application.DoEvents(); // ki a loopból?
+				Lépés();
 			}
 		}
 		public void Lépés()
@@ -69,23 +70,19 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 				Mozgás(P, Q);
 			pb.Refresh();
 		}
-
 		private void Belépés(Point P)
 		{
 			if (r.NextDouble()<BV)
 			{
-				Tér[P.X, P.Y]++;
+				AddVíz(P,1);
 				Fest(P);
 			}
 		}
-
 		private void Kilépés(Point P)
 		{
-			Tér[P.X, P.Y] = 0;
+			SetVíz(P, 0);
 			Fest(P);
 		}
-
-
 		private void Mozgás(Point P, Point Q)
 		{
 			if (Csepp(P))
@@ -93,42 +90,39 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 			else if (Vizes(P))
 				Felfelé(P, Q);
 		}
-
 		private void Felfelé(Point P, Point Q)
 		{
 			if (!(Csepp(P) && Csepp(Q)))
 			{
-				Tér[Q.X, Q.Y] += Tér[P.X, P.Y];
+				AddVíz(Q, GetVíz(P));
 				Kilépés(P);
 				Fest(P);
 				Fest(Q);
 			}
 		}
-
-		private void Fest(Point P) => bmp.SetPixel(P.X, P.Y, Festőszín(Tér[P.X,P.Y]));
-		private Color Festőszín(int v) => Festőszín_from_rg(v > 25 ? 0 : 255 - 10 * v);
-		private Color Festőszín_from_rg(int c) => Color.Blue;
-		// private Color Festőszín_from_rg(int c) => Color.FromArgb(c, c, 255);
-
-
-
+		private void Fest(Point P) => bmp.SetPixel(P.X, P.Y, Festőszín(GetVíz(P)));
+		private int Nbe(int a) => a < 0 ? 0 : a;
+		private Color Festőszín(int v) => Festőszín_from_rg(Nbe(255 - C * v));
+		/**/
+		private Color Festőszín_from_rg(int c) => Color.FromArgb(c, c, 255);
+		/*/
+		private Color Festőszín_from_rg(int c) => Color.FromArgb(c, c, 255);
+		/**/
 		private void Egyet_Felfelé(Point P, Point Q)
 		{
-			if (Csepp(P))
+			if (Vizes(P))
 			{
-				Tér[Q.X, Q.Y]++;
-				Tér[P.X, Q.Y]--;
+				AddVíz(Q, 1);
+				AddVíz(P, -1);
 				Fest(P);
 				Fest(Q);
 			}
 		}
-
 		private void Párolgás(Point P)
 		{
 			if (r.NextDouble()< PÁROL(T, P))
 				Egyet_Felfelé(P, Véletlen_szomszéd_fel(P));
 		}
-
 		/// <summary>
 		/// Saját képlet: A hőmérséklet mint százalék és a cseppmennyiségből összekalapált [0..100] közé eső képlet úgy, hogy 
 		/// - minél melegebb van, annál jobban párologjon.
@@ -138,7 +132,7 @@ namespace ELTE_Szimulacio_10_Heterogen_kondenzacio
 		/// <param name="T"></param>
 		/// <param name="P"></param>
 		/// <returns></returns>
-		private double PÁROL(int T, Point P) => ((0.005 * (double)T) + 0.5 * (Tér[P.X, P.Y] == 0 ? 1 : 1 / Tér[P.X, P.Y]));
+		private double PÁROL(int T, Point P) => ((0.005 * (double)T) + 0.5 * (GetVíz(P) == 0 ? 1 : 1 / GetVíz(P)));
 		private Point Véletlen_szomszéd_fel(Point P) => new Point(P.X + r.Next(Min_X(ref P), Max_X(ref P) + 1), P.Y - 1);
 		private int Min_X(ref Point P) => P.X == 0 ? 0 : -1;
 		private int Max_X(ref Point P) => P.X == W - 1 ? 0 : 1;

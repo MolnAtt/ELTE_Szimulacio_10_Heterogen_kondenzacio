@@ -57,4 +57,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="debuglabel.Text" xml:space="preserve">
+    <value>Minél magasabb, annál lassabban jelennek meg az új vízcseppek! A színárnyalatok határozzák meg, hogy a vízmennyiség hogyan legyen reflektálva színnel. 10-nél nagyobbat elméletileg lehet természetesen, de a gyakorlatban nem látszódik belőle semmi. </value>
+  </data>
 </root>

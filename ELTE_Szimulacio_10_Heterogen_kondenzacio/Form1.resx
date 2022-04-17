@@ -58,6 +58,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="debuglabel.Text" xml:space="preserve">
-    <value>Minél magasabb, annál lassabban jelennek meg az új vízcseppek! A színárnyalatok határozzák meg, hogy a vízmennyiség hogyan legyen reflektálva színnel. 10-nél nagyobbat elméletileg lehet természetesen, de a gyakorlatban nem látszódik belőle semmi. </value>
+    <value>Minél magasabb, annál lassabban jelennek meg az új vízcseppek! A színárnyalatok: minél kékebb, annál vizesebb. A piros összetevő miatti lila a kondenzációs mag jelenlétére utal.  A lenti mátrixos megjelenítést csak kis méret (40x40) esetén érdemes. Túl magas szimulációs tér esetén elhanyagolhatóvá válik az új cseppek megjelenési valószínűsége!</value>
   </data>
 </root>
